@@ -10,4 +10,7 @@ func main() {
 	Nerichain := nerichain.NeriChain{}
 	TheOneAndOnlyNeri := nerichain.CreateGenesisBlock()
 	Nerichain = append(Nerichain, TheOneAndOnlyNeri)
+
+	verified_block := TheOneAndOnlyNeri.VerifyNeri()
+	fmt.Println(verified_block)
 }
