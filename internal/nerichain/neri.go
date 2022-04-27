@@ -30,11 +30,10 @@ func CreateGenesisBlock() *Neri {
 	return neri
 }
 
-func (n *Neri) createHash() string{
+func (n *Neri) createHash() {
 	data, _ := json.Marshal(n.data)
 	toHash := n.previousHash + n.timestamp.String() + string(data) + string(n.difficulty) + string(n.nonce)
 	n.hash = fmt.Sprintf("%x", sha256.Sum256([]byte(toHash)))
-	return n.hash
 }
 
 func (n *Neri) Mine() {
