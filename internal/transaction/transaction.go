@@ -14,7 +14,4 @@ func (t *Transactions) AddTransaction(transaction Transaction) {
 	fmt.Println("Send transaction to each miner...")
 	fmt.Println(transaction)
 	*t = append((*t), &transaction)
-	for _, t := range *t {
-		fmt.Println(t)
-	}
 }
