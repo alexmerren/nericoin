@@ -24,11 +24,11 @@ func CreateGenesisBlock() *Neri {
 		data:         transaction.Transaction{},
 		difficulty:   1,
 	}
-	neri.createHash()
+	neri.calculateHash()
 	return neri
 }
 
-func (n *Neri) createHash() {
+func (n *Neri) calculateHash() {
 	data, _ := json.Marshal(n.data)
 	toHash := n.previousHash + n.timestamp.String() + string(data) + strconv.Itoa(n.difficulty)
 	n.hash = fmt.Sprintf("%x", sha256.Sum256([]byte(toHash)))
@@ -50,5 +50,5 @@ func (n *NeriChain) CreateNeri(data transaction.Transaction) {
 
 func (n *Neri) mine() {
 	fmt.Println("Mining...")
-	(*n).createHash()
+	(*n).calculateHash()
 }
