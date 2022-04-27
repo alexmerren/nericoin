@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"nericoin/internal/nerichain"
 	"nericoin/internal/transaction"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 func main() {
@@ -24,4 +26,5 @@ func main() {
 		Value: 420,
 	})
 	Nerichain.CreateNeri(transactions)
+	spew.Dump(transactions)
 }
