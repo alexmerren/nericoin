@@ -13,7 +13,7 @@ type Neri struct {
 	hash         string
 	previousHash string
 	timestamp    time.Time
-	data         transaction.Transaction
+	data         transaction.Transactions
 	difficulty   int
 }
 
@@ -21,7 +21,7 @@ func CreateGenesisBlock() *Neri {
 	neri := &Neri{
 		previousHash: "",
 		timestamp:    time.Now(),
-		data:         transaction.Transaction{},
+		data:         transaction.Transactions{},
 		difficulty:   1,
 	}
 	neri.calculateHash()
@@ -35,8 +35,12 @@ func (n *Neri) calculateHash() {
 	fmt.Println("Hash of neri:\n" + n.hash)
 }
 
-func (n *NeriChain) CreateNeri(data transaction.Transaction) {
+func (n *NeriChain) CreateNeri(data transaction.Transactions) {
+	fmt.Println("Creating Neri...")
 	prevNeri := (*n)[len(*n)-1]
+	for _, t := range data {
+		fmt.Println(t)
+	}
 	newNeri := &Neri{
 		previousHash: prevNeri.hash,
 		timestamp:    time.Now(),
