@@ -11,6 +11,5 @@ func main() {
 	TheOneAndOnlyNeri := nerichain.CreateGenesisBlock()
 	Nerichain = append(Nerichain, TheOneAndOnlyNeri)
 
-	verified_block := TheOneAndOnlyNeri.VerifyNeri()
-	fmt.Println(verified_block)
+	TheOneAndOnlyNeri.Mine()
 }

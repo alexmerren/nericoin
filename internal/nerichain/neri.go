@@ -5,6 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
+	"math/rand"
+	"strconv"
+	"strings"
 )
 
 type Neri struct {
@@ -13,6 +16,7 @@ type Neri struct {
 	timestamp    time.Time
 	data         map[string]interface{}
 	difficulty   int
+	nonce 		 int
 }
 
 func CreateGenesisBlock() *Neri {
@@ -20,7 +24,7 @@ func CreateGenesisBlock() *Neri {
 		previousHash: "",
 		timestamp:    time.Now(),
 		data:         map[string]interface{}{},
-		difficulty:   1,
+		difficulty:   2,
 	}
 	neri.createHash()
 	return neri
@@ -28,46 +32,38 @@ func CreateGenesisBlock() *Neri {
 
 func (n *Neri) createHash() string{
 	data, _ := json.Marshal(n.data)
-	toHash := n.previousHash + n.timestamp.String() + string(data) + string(n.difficulty)
+	toHash := n.previousHash + n.timestamp.String() + string(data) + string(n.difficulty) + string(n.nonce)
 	n.hash = fmt.Sprintf("%x", sha256.Sum256([]byte(toHash)))
 	return n.hash
 }
 
-func (n *Neri) VerifyNeri() bool{
+func (n *Neri) Mine() {
+	// Carries out the mining of the block by trying random nonces until the neri is verified
+
+	attempt := 1
+	fmt.Println("Mining...")
+	for {
+		//fmt.Println("Attemt " + strconv.Itoa(attempt))
+		n.nonce = rand.Intn(100000)
+
+		if n.Verify() == true {
+			fmt.Println("Mined in " + strconv.Itoa(attempt) + " attempts! Yayy!")
+			break
+		}
+		attempt++
+	}
+}
+
+func (n *Neri) Verify() bool{
 	// Verify a successfully mined block by checking that the hash of the
 	// block hash and the nonce is has the number of zeros defined by the
 	// difficulty
 
-	fmt.Println("Verifying Neri")
-	verified_status := false
+	n.createHash()
+	check_hash := n.hash
 
-	//Perform hash function on the combined block_hash and nonce
-	check_hash := n.createHash()
-	//check_hash = "0x00000000454"
-	fmt.Println("Hash: " + check_hash)
-
-	// Validate the number of leading zeros vs difficulty
-	num_zeros := countZeros(check_hash)
-	//fmt.Println("Num Zeros: " + num_zeros)
-
-	if num_zeros >= n.difficulty{
-		verified_status = true
+	if strings.HasPrefix(check_hash, strings.Repeat("0", n.difficulty)) {
+		return true
 	}
-	return verified_status
-}
-
-func countZeros(hash string) int{
-	// Split the hash up into single runes and compare each rune to the ascii
-	// for 0 (48) and if yes then increment the total number of zeros. Else
-	// break the for loop and return num_zeros.
-	digits := []rune(hash)
-	num_zeros := 0
-	for i := 0; i < len(digits); i++ {
-		if digits[i] == 48 {
-			num_zeros++
-		} else {
-			break
-		}
-	}
-	return num_zeros
+	return false
 }
