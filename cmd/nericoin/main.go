@@ -13,6 +13,7 @@ func main() {
 	Nerichain := nerichain.NeriChain{}
 	TheOneAndOnlyNeri := nerichain.CreateGenesisBlock()
 	Nerichain = append(Nerichain, TheOneAndOnlyNeri)
+
 	transactions := transaction.Transactions{}
 	transactions.AddTransaction(transaction.Transaction{
 		Ant:   "Jeremy",
