@@ -25,7 +25,7 @@ func CreateGenesisBlock() *Neri {
 		previousHash: "",
 		timestamp:    time.Now(),
 		data:         transaction.Transactions{},
-		difficulty:   1,
+		difficulty:   2,
 	}
 	neri.calculateHash()
 	return neri
@@ -78,7 +78,9 @@ func (n *NeriChain) CreateNeri(data transaction.Transactions) {
 		previousHash: prevNeri.hash,
 		timestamp:    time.Now(),
 		data:         data,
+		difficulty:   prevNeri.difficulty,
 	}
+	fmt.Println(newNeri)
 	newNeri.Mine()
 	fmt.Println("New Neri:")
 	fmt.Println(newNeri)
