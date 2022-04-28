@@ -14,7 +14,8 @@ type NerichainIterator struct {
 
 func NewNerichainIterator(n *Nerichain) *NerichainIterator {
 	return &NerichainIterator{
-		nerichain: n,
+		currentHash: n.currentHash,
+		nerichain:   n,
 	}
 }
 
@@ -31,9 +32,10 @@ func (i *NerichainIterator) GetNext() *neri.Neri {
 		serializedNeri := bucket.Get([]byte(i.currentHash))
 		neri := neri.Deserialize(serializedNeri)
 		if neri == nil {
-			return errors.New("")
+			return errors.New("could not deserialize current neri")
 		}
 		nextNeri = neri
+		i.currentHash = neri.PreviousHash
 		return nil
 	})
 	if err != nil {
@@ -51,14 +53,19 @@ func (i *NerichainIterator) HasNext() bool {
 	err := i.nerichain.database.View(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket([]byte(blocksBucket))
 		serializedNeri := bucket.Get([]byte(i.currentHash))
-		if serializedNeri != nil {
-			return errors.New("Could not find the previous hash")
+		// If the current neri does not exist in the DB
+		if serializedNeri == nil {
+			return errors.New("Could not find the current hash")
 		}
+		// If the current neri cannot be deserialized
 		neri := neri.Deserialize(serializedNeri)
 		if neri == nil {
-			return errors.New("")
+			return errors.New("could not deserialize current neri")
 		}
-		i.currentHash = neri.PreviousHash
+		// If the previous neri cannot be found in the DB
+		if len(neri.PreviousHash) == 0 {
+			return errors.New("cannot have length zero previous hash")
+		}
 		return nil
 	})
 	if err != nil {
