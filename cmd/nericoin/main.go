@@ -1,7 +1,6 @@
 package main
 
 import (
-	"nericoin/internal/neri"
 	"nericoin/internal/nerichain"
 
 	"github.com/davecgh/go-spew/spew"
@@ -9,7 +8,8 @@ import (
 
 func main() {
 	Nerichain := nerichain.CreateNerichain()
-	TheOneAndOnlyNeri := neri.CreateGenesisBlock()
-	Nerichain.AddNeri(TheOneAndOnlyNeri)
+	Nerichain.AddNeri("Daddy")
+	Nerichain.AddNeri("Mummy")
+	Nerichain.AddNeri("Uncle")
 	spew.Dump(Nerichain)
 }

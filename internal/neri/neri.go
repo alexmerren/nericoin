@@ -1,6 +1,8 @@
 package neri
 
 import (
+	"bytes"
+	"encoding/gob"
 	"time"
 )
 
@@ -30,9 +32,23 @@ func CreateGenesisBlock() *Neri {
 }
 
 func (n *Neri) Serialize() ([]byte, error) {
-	return nil, nil
+	// serialize neri and return stream of bytes
+	var output bytes.Buffer
+	encoder := gob.NewEncoder(&output)
+	err := encoder.Encode(n)
+	if err != nil {
+		return nil, err
+	}
+	return output.Bytes(), nil
 }
 
-func Deserialize(serialized []byte) (*Neri, error) {
-	return nil, nil
+func Deserialize(b []byte) *Neri {
+	// deserialize neri from db and return neri
+	var neri Neri
+	decoder := gob.NewDecoder(bytes.NewReader(b))
+	err := decoder.Decode(&neri)
+	if err != nil {
+		return nil
+	}
+	return &neri
 }

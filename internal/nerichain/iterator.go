@@ -29,9 +29,9 @@ func (i *NerichainIterator) GetNext() *neri.Neri {
 	err := i.nerichain.database.View(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket([]byte(blocksBucket))
 		serializedNeri := bucket.Get([]byte(i.currentHash))
-		neri, err := neri.Deserialize(serializedNeri)
-		if err != nil {
-			return err
+		neri := neri.Deserialize(serializedNeri)
+		if neri == nil {
+			return errors.New("")
 		}
 		nextNeri = neri
 		return nil
@@ -54,9 +54,9 @@ func (i *NerichainIterator) HasNext() bool {
 		if serializedNeri != nil {
 			return errors.New("Could not find the previous hash")
 		}
-		neri, err := neri.Deserialize(serializedNeri)
-		if err != nil {
-			return err
+		neri := neri.Deserialize(serializedNeri)
+		if neri == nil {
+			return errors.New("")
 		}
 		i.currentHash = neri.PreviousHash
 		return nil
