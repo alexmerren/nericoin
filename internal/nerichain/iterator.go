@@ -55,7 +55,7 @@ func (i *NerichainIterator) HasNext() bool {
 		serializedNeri := bucket.Get([]byte(i.currentHash))
 		// If the current neri does not exist in the DB
 		if serializedNeri == nil {
-			return errors.New("Could not find the current hash")
+			return errors.New("could not find the current hash")
 		}
 		// If the current neri cannot be deserialized
 		neri := neri.Deserialize(serializedNeri)
@@ -68,8 +68,5 @@ func (i *NerichainIterator) HasNext() bool {
 		}
 		return nil
 	})
-	if err != nil {
-		return false
-	}
-	return true
+	return err == nil
 }
