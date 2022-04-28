@@ -3,6 +3,9 @@ package neri
 import (
 	"bytes"
 	"encoding/gob"
+	"fmt"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -40,6 +43,26 @@ func CreateGenesisBlock() *Neri {
 		Onio:  "Nimble",
 		Value: 1000000000,
 	})
+}
+
+func (n *Neri) String() {
+	l := len(n.Hash) + 20
+	fmt.Println(strings.Repeat("-", l))
+	hashPrint := "| Hash: " + n.Hash
+	prevHashPrint := "| Previous Hash: " + n.PreviousHash
+	antPrint := "| Ant: " + n.Data.Ant
+	onioPrint := "| Onio: " + n.Data.Onio
+	valPrint := "| Value: " + strconv.FormatInt(n.Data.Value, 10)
+	timestampPrint := "| Timestamp: " + n.Timestamp.String()
+	elementPrint := "| The Element: " + strconv.Itoa(n.TheElement)
+	fmt.Println(hashPrint + strings.Repeat(" ", l-len(hashPrint)) + "|")
+	fmt.Println(prevHashPrint + strings.Repeat(" ", l-len(prevHashPrint)) + "|")
+	fmt.Println(antPrint + strings.Repeat(" ", l-len(antPrint)) + "|")
+	fmt.Println(onioPrint + strings.Repeat(" ", l-len(onioPrint)) + "|")
+	fmt.Println(valPrint + strings.Repeat(" ", l-len(valPrint)) + "|")
+	fmt.Println(timestampPrint + strings.Repeat(" ", l-len(timestampPrint)) + "|")
+	fmt.Println(elementPrint + strings.Repeat(" ", l-len(elementPrint)) + "|")
+	fmt.Println(strings.Repeat("-", l))
 }
 
 func (n *Neri) Serialize() ([]byte, error) {
