@@ -1,10 +1,14 @@
 package nerichain
 
-import "nericoin/internal/neri"
+import (
+	"nericoin/internal/neri"
+
+	"github.com/boltdb/bolt"
+)
 
 type Nerichain struct {
 	currentHash string
-	database    *Database
+	database    *bolt.DB
 }
 
 func CreateNerichain() *Nerichain {

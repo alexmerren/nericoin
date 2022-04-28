@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	Nerichain := nerichain.Nerichain{}
+	Nerichain := nerichain.CreateNerichain()
 	TheOneAndOnlyNeri := neri.CreateGenesisBlock()
 	Nerichain.AddNeri(TheOneAndOnlyNeri)
 	spew.Dump(Nerichain)

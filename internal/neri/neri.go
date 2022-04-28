@@ -29,6 +29,10 @@ func CreateGenesisBlock() *Neri {
 	return CreateNeri("", "Praise our lord and saviour, the one and the only, Antonio Fabio Neri.")
 }
 
-func (n *Neri) Serialize() {}
+func (n *Neri) Serialize() ([]byte, error) {
+	return nil, nil
+}
 
-func (n *Neri) Deserialize() {}
+func Deserialize(serialized []byte) (*Neri, error) {
+	return nil, nil
+}
