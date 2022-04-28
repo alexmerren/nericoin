@@ -1,26 +1,49 @@
 package cli
 
 import (
+	"fmt"
 	"nericoin/internal/nerichain"
-	nc "nericoin/internal/nerichain"
+	"os"
+
+	"github.com/spf13/cobra"
 )
 
-func CreateNerichain() *nc.Nerichain {
-	return &nerichain.Nerichain{}
-}
+var (
+	chain *nerichain.Nerichain
+)
 
-func ViewNerichain(chain *nc.Nerichain) {}
+// Root command for the CLI (nericoin)
+var rootCmd = &cobra.Command{
+	Use:   "nericoin",
+	Short: "All the CLI for Nericoin",
+	Long: ``,
+  }
 
-func AddNeriToNerichain(data string) *nc.Nerichain {
-	return &nc.Nerichain{}
-}
+  func Execute(nc *nerichain.Nerichain) {
+	chain = nc
+	if err := rootCmd.Execute(); err != nil {
+	  fmt.Println(err)
+	  os.Exit(1)
+	}
+  }
 
-// KILL ME
-// KILL ME
-// KILL ME
 
-func CreateWallet() {}
+// func CreateNerichain() *nc.Nerichain {
+// 	return &nerichain.Nerichain{}
+// }
 
-func ViewWalletBalance() {}
+// func ViewNerichain(chain *nc.Nerichain) {}
 
-func CreateTransaction() {}
+// func AddNeriToNerichain(data string) *nc.Nerichain {
+// 	return &nc.Nerichain{}
+// }
+
+// // KILL ME
+// // KILL ME
+// // KILL ME
+
+// func CreateWallet() {}
+
+// func ViewWalletBalance() {}
+
+// func CreateTransaction() {}
