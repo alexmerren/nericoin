@@ -3,6 +3,7 @@ package nerichain
 import (
 	"nericoin/internal/database"
 	"nericoin/internal/neri"
+	"nericoin/internal/transaction"
 )
 
 type Nerichain struct {
@@ -24,8 +25,8 @@ func CreateNerichain() *Nerichain {
 	return &Nerichain{currentHash, db}
 }
 
-func (n *Nerichain) AddNeri(data neri.Transaction) {
-	prevHash, _ := n.db.GetLatestHash()
+func (n *Nerichain) AddNeri(data transaction.Transaction) {
+	var prevHash string
 
 	// create new neri (includes mining and setting hash)
 	newNeri := neri.CreateNeri(prevHash, data)
@@ -39,10 +40,6 @@ func (n *Nerichain) ViewNerichain() {
 		iterator.GetNext().String()
 	}
 }
-
-// KILL ME
-// KILL ME
-// KILL ME
 
 func (n *Nerichain) FindUnspentTransactions() string {
 	return ""
