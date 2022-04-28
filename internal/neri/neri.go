@@ -1,6 +1,8 @@
 package neri
 
 import (
+	"bytes"
+	"encoding/gob"
 	"time"
 )
 
@@ -29,6 +31,24 @@ func CreateGenesisBlock() *Neri {
 	return CreateNeri("", "Praise our lord and saviour, the one and the only, Antonio Fabio Neri.")
 }
 
-func (n *Neri) Serialize() {}
+func (n *Neri) Serialize() ([]byte, error) {
+	// serialize neri and return stream of bytes
+	var output bytes.Buffer
+	encoder := gob.NewEncoder(&output)
+	err := encoder.Encode(n)
+	if err != nil {
+		return nil, err
+	}
+	return output.Bytes(), nil
+}
 
-func (n *Neri) Deserialize() {}
+func Deserialize(b []byte) *Neri {
+	// deserialize neri from db and return neri
+	var neri Neri
+	decoder := gob.NewDecoder(bytes.NewReader(b))
+	err := decoder.Decode(&neri)
+	if err != nil {
+		return nil
+	}
+	return &neri
+}
