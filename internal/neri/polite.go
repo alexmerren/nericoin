@@ -35,12 +35,15 @@ func (p *Polite) calculateHash() {
 // Carries out the mining of the block by trying random nonces until the neri is verified
 func (p *Polite) Mine() {
 	attempt := 1
+	fmt.Println(strings.Repeat("-", 10))
 	fmt.Println("Mining...")
 	for {
 		p.neri.TheElement = rand.Intn(math.MaxInt)
 		if p.Verify() {
 			fmt.Println(p.neri.Hash)
 			fmt.Println("Mined in " + strconv.Itoa(attempt) + " attempts! Yayy!")
+			fmt.Println(strings.Repeat("-", 10))
+			fmt.Println()
 			break
 		}
 		attempt++

@@ -33,7 +33,6 @@ func (d *Database) CheckNerichainExists() bool {
 		b := tx.Bucket([]byte(blocksBucket))
 		// if blockchain doesn't exist return false
 		if b != nil {
-			fmt.Println("Existing nerichain found")
 			foundNerichain = true
 		}
 		return nil
@@ -52,7 +51,6 @@ func (d *Database) CreateBlockBucket() error {
 
 func (d *Database) InsertNeri(n *neri.Neri) error {
 
-	fmt.Println("Inserting Neri into db...")
 	serializedNeri, err := n.Serialize()
 	if err != nil {
 		return err
