@@ -26,8 +26,8 @@ func CreateNerichain() *Nerichain {
 }
 
 func (n *Nerichain) AddNeri(data transaction.Transaction) {
-	var prevHash string
 
+	prevHash, _ := n.db.GetLatestHash()
 	// create new neri (includes mining and setting hash)
 	newNeri := neri.CreateNeri(prevHash, data)
 	n.db.InsertNeri(newNeri)
