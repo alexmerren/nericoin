@@ -6,8 +6,10 @@ import (
 
 func main() {
 	cli.Execute()
-	// Nerichain := nerichain.Nerichain{}
-	// TheOneAndOnlyNeri := neri.CreateGenesisBlock()
-	// Nerichain.AddNeri(TheOneAndOnlyNeri)
+
+	// Nerichain := nerichain.CreateNerichain()
+	// Nerichain.AddNeri("Daddy")
+	// Nerichain.AddNeri("Mummy")
+	// Nerichain.AddNeri("Uncle")
 	// spew.Dump(Nerichain)
 }
