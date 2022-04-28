@@ -1,6 +1,6 @@
 # Nericoin
 
-A HPE-based blockchain featuring transactions, wallets, mining, and verifying of blockchains.
+A meme blockchain featuring transactions, wallets, mining, and verifying of blockchains.
 
 ## Contents
 * [Requirements](#requirements)
