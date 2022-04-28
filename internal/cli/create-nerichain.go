@@ -11,6 +11,7 @@ var (
 		Use:   "new-nerichain", // cmd name
 		Short: "Make a new Nerichain", // Description
 		Long:  ``,
+		Args: cobra.MinimumNArgs(1),
 		Run:   NewNerichain, // Command to be ran
 	}
 )

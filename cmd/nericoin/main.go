@@ -2,10 +2,12 @@ package main
 
 import (
 	"nericoin/internal/cli"
+	"nericoin/internal/nerichain"
 )
 
 func main() {
-	cli.Execute()
+	nc := nerichain.CreateNerichain()
+	cli.Execute(nc)
 
 	// Nerichain := nerichain.CreateNerichain()
 	// Nerichain.AddNeri("Daddy")
