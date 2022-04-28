@@ -41,7 +41,8 @@ func (p *Polite) Mine() {
 		//fmt.Println("Attemt " + strconv.Itoa(attempt))
 		p.neri.TheElement = rand.Intn(math.MaxInt)
 
-		if p.Verify() == true {
+		if p.Verify() {
+			fmt.Println(p.neri.Hash)
 			fmt.Println("Mined in " + strconv.Itoa(attempt) + " attempts! Yayy!")
 			break
 		}
@@ -57,8 +58,5 @@ func (p *Polite) Verify() bool {
 	p.calculateHash()
 	check_hash := p.neri.Hash
 
-	if strings.HasPrefix(check_hash, strings.Repeat("0", p.difficulty)) {
-		return true
-	}
-	return false
+	return strings.HasPrefix(check_hash, strings.Repeat("0", p.difficulty))
 }
