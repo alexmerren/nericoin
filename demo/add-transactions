@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Add a couple transactions
+bin/nericoin send Bob Alice 40
+bin/nericoin send Alice Bob 10
+bin/nericoin send Bob Bertha 20
+bin/nericoin send Arthur Berta 5
