@@ -21,4 +21,4 @@ vendor:
 
 .PHONY: install-tools 
 install-tools:
-	$(GO) get -u github.com/davecgh/go-spew/spew
+	$(GO) get github.com/boltdb/bolt/...

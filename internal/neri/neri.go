@@ -28,7 +28,7 @@ func CreateNeri(previousHash string, data string) *Neri {
 }
 
 func CreateGenesisBlock() *Neri {
-	return CreateNeri("", "Praise our lord and saviour, the one and the only, Antonio Fabio Neri.")
+	return CreateNeri("0", "Praise our lord and saviour, the one and the only, Antonio Fabio Neri.")
 }
 
 func (n *Neri) Serialize() ([]byte, error) {

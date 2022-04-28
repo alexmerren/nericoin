@@ -5,6 +5,7 @@ import (
 	"nericoin/internal/neri"
 
 	"github.com/boltdb/bolt"
+	"github.com/davecgh/go-spew/spew"
 )
 
 const (
@@ -102,6 +103,13 @@ func (n *Nerichain) AddNeri(data string) {
 	})
 	if err != nil {
 		panic(err)
+	}
+}
+
+func (n *Nerichain) ViewNerichain() {
+	iterator := NewNerichainIterator(n)
+	for iterator.HasNext() {
+		spew.Dump(iterator.GetNext())
 	}
 }
 
