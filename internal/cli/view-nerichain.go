@@ -3,7 +3,6 @@ package cli
 import (
 	"fmt"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/spf13/cobra"
 )
 
@@ -19,7 +18,7 @@ var (
 func ViewNerichain(cmd *cobra.Command, args []string) {
 
 	fmt.Println("Viewing Nerichain")
-	spew.Dump(chain)
+	chain.ViewNerichain()
 }
 
 func init() {
