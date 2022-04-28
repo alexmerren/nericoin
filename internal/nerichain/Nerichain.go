@@ -3,13 +3,14 @@ package nerichain
 import (
 	"fmt"
 	"nericoin/internal/neri"
+	"nericoin/internal/transaction"
 
 	"github.com/boltdb/bolt"
 )
 
 const (
 	blocksBucket = "blocks"
-	latestBucket = "latest"
+	//latestBucket = "latest"
 	databaseFile = "nerichain.db"
 )
 
@@ -64,7 +65,7 @@ func CreateNerichain() *Nerichain {
 	return &Nerichain{currentHash, db}
 }
 
-func (n *Nerichain) AddNeri(data neri.Transaction) {
+func (n *Nerichain) AddNeri(data transaction.Transaction) {
 	var prevHash string
 
 	// read only DB transaction to get latest block hash
@@ -111,10 +112,6 @@ func (n *Nerichain) ViewNerichain() {
 		iterator.GetNext().String()
 	}
 }
-
-// KILL ME
-// KILL ME
-// KILL ME
 
 func (n *Nerichain) FindUnspentTransactions() string {
 	return ""

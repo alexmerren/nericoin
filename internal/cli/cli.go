@@ -16,34 +16,13 @@ var (
 var rootCmd = &cobra.Command{
 	Use:   "nericoin",
 	Short: "All the CLI for Nericoin",
-	Long: ``,
-  }
+	Long:  ``,
+}
 
-  func Execute(nc *nerichain.Nerichain) {
+func Execute(nc *nerichain.Nerichain) {
 	chain = nc
 	if err := rootCmd.Execute(); err != nil {
-	  fmt.Println(err)
-	  os.Exit(1)
+		fmt.Println(err)
+		os.Exit(1)
 	}
-  }
-
-
-// func CreateNerichain() *nc.Nerichain {
-// 	return &nerichain.Nerichain{}
-// }
-
-// func ViewNerichain(chain *nc.Nerichain) {}
-
-// func AddNeriToNerichain(data string) *nc.Nerichain {
-// 	return &nc.Nerichain{}
-// }
-
-// // KILL ME
-// // KILL ME
-// // KILL ME
-
-// func CreateWallet() {}
-
-// func ViewWalletBalance() {}
-
-// func CreateTransaction() {}
+}

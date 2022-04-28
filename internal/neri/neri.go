@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/gob"
 	"fmt"
+	"nericoin/internal/transaction"
 	"strconv"
 	"strings"
 	"time"
@@ -13,17 +14,11 @@ type Neri struct {
 	Hash         string
 	PreviousHash string
 	Timestamp    time.Time
-	Data         Transaction
+	Data         transaction.Transaction
 	TheElement   int
 }
 
-type Transaction struct {
-	Ant   string
-	Onio  string
-	Value int64
-}
-
-func CreateNeri(previousHash string, data Transaction) *Neri {
+func CreateNeri(previousHash string, data transaction.Transaction) *Neri {
 	neri := &Neri{
 		Timestamp:    time.Now(),
 		PreviousHash: previousHash,
@@ -37,8 +32,7 @@ func CreateNeri(previousHash string, data Transaction) *Neri {
 }
 
 func CreateGenesisBlock() *Neri {
-
-	return CreateNeri("0", Transaction{
+	return CreateNeri("0", transaction.Transaction{
 		Ant:   "Antonio",
 		Onio:  "Nimble",
 		Value: 1000000000,
@@ -65,8 +59,8 @@ func (n *Neri) String() {
 	fmt.Println(strings.Repeat("-", l))
 }
 
+// serialize neri and return stream of bytes
 func (n *Neri) Serialize() ([]byte, error) {
-	// serialize neri and return stream of bytes
 	var output bytes.Buffer
 	encoder := gob.NewEncoder(&output)
 	err := encoder.Encode(n)
@@ -76,8 +70,8 @@ func (n *Neri) Serialize() ([]byte, error) {
 	return output.Bytes(), nil
 }
 
+// deserialize neri from db and return neri
 func Deserialize(b []byte) *Neri {
-	// deserialize neri from db and return neri
 	var neri Neri
 	decoder := gob.NewDecoder(bytes.NewReader(b))
 	err := decoder.Decode(&neri)

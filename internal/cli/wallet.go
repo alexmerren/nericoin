@@ -2,7 +2,7 @@ package cli
 
 import (
 	"fmt"
-	"nericoin/internal/quickSum"
+	"nericoin/internal/wallet"
 	"strconv"
 
 	"github.com/spf13/cobra"
@@ -10,7 +10,7 @@ import (
 
 var (
 	walletCmd = &cobra.Command{
-		Use:   "wallet [address]", // cmd name
+		Use:   "wallet [address]",               // cmd name
 		Short: "View wallet amount for account", // Description
 		Long:  ``,
 		Run:   ViewWallet, // Command to be ran
@@ -18,11 +18,9 @@ var (
 )
 
 func ViewWallet(cmd *cobra.Command, args []string) {
-
-	fmt.Println("Viewing wallet")
-	fmt.Println("In wallet: '" + args[0] + "' you have: \n" + strconv.FormatInt(quickSum.WalletSum(chain, args[0]),10))
+	fmt.Println("In wallet: '" + args[0] + "' you have: \n" + strconv.FormatInt(wallet.WalletSum(chain, args[0]), 10))
 }
 
 func init() {
-    rootCmd.AddCommand(walletCmd)
+	rootCmd.AddCommand(walletCmd)
 }
