@@ -65,7 +65,7 @@ func CreateNerichain() *Nerichain {
 	return &Nerichain{currentHash, db}
 }
 
-func (n *Nerichain) AddNeri(data string) {
+func (n *Nerichain) AddNeri(data neri.Transaction) {
 	var prevHash string
 
 	// read only DB transaction to get latest block hash

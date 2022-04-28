@@ -10,11 +10,17 @@ type Neri struct {
 	Hash         string
 	PreviousHash string
 	Timestamp    time.Time
-	Data         string
+	Data         Transaction
 	TheElement   int
 }
 
-func CreateNeri(previousHash string, data string) *Neri {
+type Transaction struct {
+	Ant   string
+	Onio  string
+	Value int64
+}
+
+func CreateNeri(previousHash string, data Transaction) *Neri {
 	neri := &Neri{
 		Timestamp:    time.Now(),
 		PreviousHash: previousHash,
@@ -28,7 +34,12 @@ func CreateNeri(previousHash string, data string) *Neri {
 }
 
 func CreateGenesisBlock() *Neri {
-	return CreateNeri("0", "Praise our lord and saviour, the one and the only, Antonio Fabio Neri.")
+
+	return CreateNeri("0", Transaction{
+		Ant:   "Antonio",
+		Onio:  "Nimble",
+		Value: 1000000000,
+	})
 }
 
 func (n *Neri) Serialize() ([]byte, error) {
