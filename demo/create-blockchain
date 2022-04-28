@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Build the binary into ./bin/nericoin
+make build
+
+# Run the binary to create the initial nerichain
+bin/nericoin 
