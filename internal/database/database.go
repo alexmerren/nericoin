@@ -2,7 +2,7 @@ package database
 
 import (
 	"errors"
-	"fmt"
+	"log"
 	"nericoin/internal/neri"
 
 	"github.com/boltdb/bolt"
@@ -21,8 +21,7 @@ const (
 func CreateDB() *Database {
 	db, err := bolt.Open(databaseFile, 0600, nil)
 	if err != nil {
-		fmt.Println("Could not open or create database file")
-		panic(err)
+		log.Fatalf("could not open Database file")
 	}
 	return &Database{db}
 }
@@ -41,7 +40,7 @@ func (d *Database) CheckNerichainExists() bool {
 }
 
 func (d *Database) CreateBlockBucket() error {
-	fmt.Println("Creating blocks bucket")
+	log.Print("creating BlockBucket")
 	err := d.db.Update(func(tx *bolt.Tx) error {
 		_, err := tx.CreateBucket([]byte(blocksBucket))
 		return err

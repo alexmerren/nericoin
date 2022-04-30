@@ -3,26 +3,27 @@ package neri
 import (
 	"bytes"
 	"encoding/gob"
-	"fmt"
 	"nericoin/internal/transaction"
-	"strconv"
-	"strings"
 	"time"
+
+	"github.com/davecgh/go-spew/spew"
 )
+
+const genesisBlockData = "HAHAHA"
 
 type Neri struct {
 	Hash         string
 	PreviousHash string
 	Timestamp    time.Time
-	Data         transaction.Transaction
+	Transactions []*transaction.Transaction
 	TheElement   int
 }
 
-func CreateNeri(previousHash string, data transaction.Transaction) *Neri {
+func CreateNeri(previousHash string, transactions []*transaction.Transaction) *Neri {
 	neri := &Neri{
 		Timestamp:    time.Now(),
 		PreviousHash: previousHash,
-		Data:         data,
+		Transactions: transactions,
 		TheElement:   0,  // The Element is intentially 0 for mining
 		Hash:         "", // The Hash is calculated when mining the Neri
 	}
@@ -31,32 +32,13 @@ func CreateNeri(previousHash string, data transaction.Transaction) *Neri {
 	return neri
 }
 
-func CreateGenesisBlock() *Neri {
-	return CreateNeri("0", transaction.Transaction{
-		Ant:   "Antonio",
-		Onio:  "Nimble",
-		Value: 1000000000,
-	})
+func CreateGenesisBlock(address string) *Neri {
+	coinbaseTx := transaction.NewCoinbaseTransaction(address, genesisBlockData)
+	return CreateNeri("", []*transaction.Transaction{coinbaseTx})
 }
 
 func (n *Neri) String() {
-	l := len(n.Hash) + 20
-	fmt.Println(strings.Repeat("-", l))
-	hashPrint := "| Hash: " + n.Hash
-	prevHashPrint := "| Previous Hash: " + n.PreviousHash
-	antPrint := "| Ant: " + n.Data.Ant
-	onioPrint := "| Onio: " + n.Data.Onio
-	valPrint := "| Value: " + strconv.FormatInt(n.Data.Value, 10)
-	timestampPrint := "| Timestamp: " + n.Timestamp.String()
-	elementPrint := "| The Element: " + strconv.Itoa(n.TheElement)
-	fmt.Println(hashPrint + strings.Repeat(" ", l-len(hashPrint)) + "|")
-	fmt.Println(prevHashPrint + strings.Repeat(" ", l-len(prevHashPrint)) + "|")
-	fmt.Println(antPrint + strings.Repeat(" ", l-len(antPrint)) + "|")
-	fmt.Println(onioPrint + strings.Repeat(" ", l-len(onioPrint)) + "|")
-	fmt.Println(valPrint + strings.Repeat(" ", l-len(valPrint)) + "|")
-	fmt.Println(timestampPrint + strings.Repeat(" ", l-len(timestampPrint)) + "|")
-	fmt.Println(elementPrint + strings.Repeat(" ", l-len(elementPrint)) + "|")
-	fmt.Println(strings.Repeat("-", l))
+	spew.Dump(n)
 }
 
 // serialize neri and return stream of bytes

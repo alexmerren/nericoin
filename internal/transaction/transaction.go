@@ -1,7 +1,9 @@
 package transaction
 
 type Transaction struct {
-	Ant   string
-	Onio  string
-	Value int64
+	ID   []byte
+	Vin  []TransactionInput
+	Vout []TransactionOutput
 }
+
+func (t *Transaction) SetID() {}

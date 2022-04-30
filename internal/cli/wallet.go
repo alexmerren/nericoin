@@ -2,8 +2,7 @@ package cli
 
 import (
 	"fmt"
-	"nericoin/internal/wallet"
-	"strconv"
+	"nericoin/internal/nerichain"
 
 	"github.com/spf13/cobra"
 )
@@ -18,7 +17,15 @@ var (
 )
 
 func ViewWallet(cmd *cobra.Command, args []string) {
-	fmt.Println("In wallet: '" + args[0] + "' you have: \n" + strconv.FormatInt(wallet.WalletSum(chain, args[0]), 10))
+	n := nerichain.CreateNerichain("")
+	balance := 0
+	UTXOs := n.FindUTXOForAddress(args[0])
+
+	for _, output := range UTXOs {
+		balance += output.Value
+	}
+
+	fmt.Printf("Balance of '%s':'%d'\n", args[0], balance)
 }
 
 func init() {

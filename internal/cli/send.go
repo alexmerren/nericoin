@@ -1,10 +1,6 @@
 package cli
 
 import (
-	"fmt"
-	"nericoin/internal/transaction"
-	"strconv"
-
 	"github.com/spf13/cobra"
 )
 
@@ -19,13 +15,7 @@ var (
 )
 
 func Send(cmd *cobra.Command, args []string) {
-	fmt.Println("Sending Nericoin 🪙")
-	val, _ := strconv.ParseInt(args[2], 10, 64)
-	chain.AddNeri(transaction.Transaction{
-		Ant:   args[0],
-		Onio:  args[1],
-		Value: val,
-	})
+	//fmt.Println("Sending Nericoin 🪙")
 }
 
 func init() {

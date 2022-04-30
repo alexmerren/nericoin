@@ -1,6 +1,8 @@
 package cli
 
 import (
+	"nericoin/internal/nerichain"
+
 	"github.com/spf13/cobra"
 )
 
@@ -14,7 +16,8 @@ var (
 )
 
 func ViewNerichain(cmd *cobra.Command, args []string) {
-	chain.ViewNerichain()
+	n := nerichain.CreateNerichain("")
+	n.ViewNerichain()
 }
 
 func init() {
