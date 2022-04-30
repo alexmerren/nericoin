@@ -82,6 +82,7 @@ func (n *Nerichain) findUnspentTransactions(address string) []*transaction.Trans
 	return unspentTransactions
 }
 
+// TODO Comment how this works
 func (n *Nerichain) FindUTXOForAddress(address string) []transaction.TransactionOutput {
 	unspentTransactions := n.findUnspentTransactions(address)
 	UTXOs := make([]transaction.TransactionOutput, 0)
